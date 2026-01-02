@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gga%!cfodukmjlq0k&!h^@h^cib#0hgi8_z!@)g50!0cn(#xps'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -141,3 +141,15 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_EXPIRES = 60 * 60 * 24  # 1 day
+
+
+#for temporary storage of task ids.
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",  
+        "LOCATION": "redis://127.0.0.1:6379/1",      # Redis host, port, DB
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
