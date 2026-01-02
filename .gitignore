@@ -1,0 +1,30 @@
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# Django
+*.sqlite3
+*.log
+media/
+staticfiles/
+
+# FastAPI
+*.db
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+
+
+main.cpython-311.pyc
