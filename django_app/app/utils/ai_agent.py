@@ -47,9 +47,9 @@ def analyze_code_with_llm(file_content, file_name):
                 "content" : prompt ,
             },   
         ],
-        temperature = 1,
+        temperature = 0,
         top_p=1,
-        stream=True,
+        stream=False,
         stop=None
     )
 
@@ -73,9 +73,10 @@ def analyze_code_with_llm(file_content, file_name):
         data = json.loads(json_text)
     except json.JSONDecodeError:
         # fallback if LLM output is not valid JSON
-        data = {"raw_output": full_response}
+        data = {"issues": []}
 
     return data
     
 
 #analyze_code_with_llm(content, "new.py")
+#celery cmd --> celery -A django_app  worker -l info --pool=solo
