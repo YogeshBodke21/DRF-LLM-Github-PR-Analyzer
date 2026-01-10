@@ -66,18 +66,22 @@ def analyze_llm_response(repo_url, pr_number, github_token):
         print("----Inside pr_files", pr_files)
         for file_name, content in pr_files.items():
             print("Processing file:", file_name)
+            if "__pycache__" in str(file_name) or ".pyc" in str(file_name) or "settings.py" in str(file_name):
+                print("inside .pyc file")
+                continue
             # no need to fetch content again, it's already in `content`
             # print("----Inside file", file)
             # file_name = file['filename']
             #whole_content = fetch_pr_file_content(repo_url, file_name, github_token)
+            print("under normal file!!")
             llm_result = analyze_code_with_llm(content, file_name)
             # print(content, file_name)
             #llm_result = analyze_code_with_llm(whole_content, file_name)
-            combine_result.append({"file_name":file_name, "Results":llm_result})
+            combine_result.append({"file_name":file_name, "file_result":llm_result})
 
-        return {"Task_id" : Task_id, "results": combine_result}
+        return {"Task_id" : Task_id, "Suggestions": combine_result}
     except Exception as e:
         print(e)
-        return {"Task_id" : Task_id, "results":[]}
+        return {"Task_id" : Task_id, "Suggestions":[]}
         
 #print(analyze_llm_response("https://github.com/YogeshBodke21/Python", "1", config("GITHUB_TOKEN")))
